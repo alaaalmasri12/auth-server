@@ -1,12 +1,12 @@
-# LAB - Class 11
+# LAB - Class 12
 
-## Project: lab-11
+## Project: lab-12
 
 ### Author: Alaa almasri
 
 ### Links and Resources
 
-- [submission PR](https://github.com/alaaalmasri12/auth-server/pull/1)
+- [submission PR](https://github.com/alaaalmasri12/auth-server/pull/2)
 
 ### Setup
 
@@ -22,19 +22,6 @@ i.e.
 #### How to initialize/run your application (where applicable)
 
 - e.g. `nodemon`
-
-#### How to use your library (where applicable)
-
-#### Tests
-
-- How do you run tests?
- npm run test 
-- Any tests of note?
-models.test.js 6 tests
-api-test.js  7 tests 
-total :13 test
-- Describe any tests that you did not complete, skipped, etc
-update test
 
 #### UML
 ![lab8](assets/uml.jpg)

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const users = require('../auth/models/user-model');
 const basicAuth = require('./middleware/basic');
-const app=express();
+const oath = require('../auth/middleware/oauth-middleware');
 router.post('/signup', (req, res)=> {
   //sign up route if we have the user, return failure, else return generated token.
   let user = req.body;
@@ -16,10 +16,12 @@ router.post('/signup', (req, res)=> {
       res.status(403).send('Invalid Signup! email is taken');
   });
 });
-router.post('/signin', basicAuth, (req, res)=> {
-    res.send({ token: `${req.token}`,
-                user:req.body});
-});
+
+
+// router.post('/signin', basicAuth, (req, res)=> {
+//     res.send({ token: `${req.token}`,
+//                 user:req.body});
+// });
 router.get('/users',(req, res)=> {
     users.list().then(result => {
         console.log(result);
@@ -29,7 +31,9 @@ router.get('/users',(req, res)=> {
         res.status(403).send('listing error');
     });});
 
-
+    router.get('/oauth', oath, (req, res)=> {
+        res.status(200).send(req.token);
+    });
 module.exports = router;
 
 
