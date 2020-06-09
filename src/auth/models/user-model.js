@@ -12,36 +12,36 @@ console.log(modulesq);
 let db = {};
 let users = {};
 users.save = async function (record) {
-    console.log('ented');
-    let userdata = await modulesq.read(record.username);
-    if (!userdata.length) {
-        console.log(userdata);
-        record.password = await bcrypt.hash(record.password, 5);
-        db[record.username] = record;
-        console.log('yazan',record);
-        modulesq.create(record)
-            .then(Data => {
-                console.log(Data);
-            }).catch(e=>{
-                console.log(e.message);
-            });
-        return record;
-    }
-    return Promise.reject('errorrrrrrrr');
-}
+  console.log('ented');
+  let userdata = await modulesq.read(record.username);
+  if (!userdata.length) {
+    console.log(userdata);
+    record.password = await bcrypt.hash(record.password, 5);
+    db[record.username] = record;
+    console.log('yazan',record);
+    modulesq.create(record)
+      .then(Data => {
+        console.log(Data);
+      }).catch(e=>{
+        console.log(e.message);
+      });
+    return record;
+  }
+  return Promise.reject('errorrrrrrrr');
+};
 
 users.authenticateBasic = async function (username, password) {
-    let valid = await bcrypt.compare(password, db[username].password);
-    return valid ? db[username] : Promise.reject();
-}
+  let valid = await bcrypt.compare(password, db[username].password);
+  return valid ? db[username] : Promise.reject();
+};
 
 users.generateToken = async function (user) {
-    let token = jwt.sign({ username: user.username }, SECRET);
-    return token;
-}
+  let token = jwt.sign({ username: user.username }, SECRET);
+  return token;
+};
 users.list = async function () {
-    let usersdata = await modulesq.read(undefined);
-    return usersdata;
-}
+  let usersdata = await modulesq.read(undefined);
+  return usersdata;
+};
 
 module.exports = users;
