@@ -44,8 +44,8 @@ users.list = async function () {
 };
 
 users.verifyToken = function (token) {
- 
   return jwt.verify(token, SECRET,function(err, decoded) {
+    console.log('decode',decoded);
     if (err) {
       console.log('err>>> ', err);
       return Promise.reject(err);
