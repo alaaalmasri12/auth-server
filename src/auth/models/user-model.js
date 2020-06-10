@@ -25,7 +25,7 @@ let users = {};
 users.save = async function(record) {
   let userdata=await modulesq.read(record.username);
   if (!userdata.length) {
-    console.log(userdata);
+    console.log('first test',userdata);
     record.password  = await bcrypt.hash(record.password, 5);
     db[record.username] = record;
     modulesq.create(record)
