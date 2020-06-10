@@ -14,6 +14,7 @@ module.exports = (req, res, next) => {
   let [user, pass] = base64.decode(basic).split(':');
   users.authenticateBasic(user, pass).then(validUser => {
     req.token = users.generateToken(validUser);
+    console.log(req.token);
     next();
   })
     .catch(err => next('Invalid Login!!'));

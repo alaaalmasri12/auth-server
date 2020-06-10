@@ -17,7 +17,6 @@ users.save = async function (record) {
     console.log(userdata);
     record.password = await bcrypt.hash(record.password, 5);
     db[record.username] = record;
-    console.log('yazan',record);
     modulesq.create(record)
       .then(Data => {
         console.log(Data);
@@ -31,6 +30,7 @@ users.save = async function (record) {
 
 users.authenticateBasic = async function (username, password) {
   let valid = await bcrypt.compare(password, db[username].password);
+  console.log(db[username].password);
   return valid ? db[username] : Promise.reject();
 };
 
