@@ -29,6 +29,7 @@ users.save = async function (record) {
 };
 
 users.authenticateBasic = async function (username, password) {
+  console.log(db[username].password);
   let valid = await bcrypt.compare(password, db[username].password);
   console.log(db[username].password);
   return valid ? db[username] : Promise.reject();
