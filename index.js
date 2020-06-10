@@ -2,7 +2,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const PORT=process.env.PORT || 3000;
-const server = require('./src/server');
+const server = require('./src/auth/server');
 const mongooseOptions = {
   useUnifiedTopology: true,
   useNewUrlParser: true,
