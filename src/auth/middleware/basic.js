@@ -10,10 +10,10 @@ module.exports = (req, res, next) => {
   }
   console.log('req.headers.authorization >>>> ',req.headers.authorization);
   let basic = req.headers.authorization.split(' ').pop();
-
+  console.log(basic);
   let [user, pass] = base64.decode(basic).split(':');
-  users.authenticateBasic(user, pass).then(validUser => {
-    req.token = users.generateToken(validUser);
+  users.authenticateBasic(user, pass).then(async validUser => {
+    req.token = await users.generateTokenin(validUser);
     console.log(req.token);
     next();
   })

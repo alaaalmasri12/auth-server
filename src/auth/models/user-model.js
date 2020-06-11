@@ -8,6 +8,11 @@ const Module = require('./model');
 const modulesq = new Module(usersschema);
 // console.log(modulesq);
 let users = {};
+let roles = {
+  user: ['read'],
+  editor: ['read', 'update', 'create'],
+  admin: ['read', 'update', 'create', 'delete'],
+};
 users.save = async function (record) {
   console.log('ented');
   let userdata = await modulesq.read(record.username);
@@ -39,7 +44,21 @@ users.authenticateBasic = async function (username, password) {
 
 users.generateToken =  function (user) {
   console.log('mmmmmmmmmmmmmmmmmmmmmmm',user);
-  let token =  jwt.sign({ username: user.username }, SECRET,{expiresIn:900});
+  let token =  jwt.sign({ username: user.username,
+    capabilities: roles[user.role],
+  }, SECRET,{expiresIn:900});
+  console.log('user-model tokennnnnnnnnnnnnn',token);
+  return token ;
+};
+
+users.generateTokenin =  async function (user) {
+  console.log('mmmmmmmmmmmmmmmmmmmmmmm',user);
+
+  let usersdata = await modulesq.read(user);
+  console.log(usersdata[0].role);
+  let token =  jwt.sign({ username: user,
+    capabilities: roles[usersdata[0].role],
+  }, SECRET,{expiresIn:900});
   console.log('user-model tokennnnnnnnnnnnnn',token);
   return token ;
 };
@@ -63,5 +82,19 @@ users.verifyToken = function (token) {
     } 
     return Promise.reject();
   });
+};
+users.presmission =  function (capability) {
+  return (req, res, next) => {
+    try {
+      if (req.user.capabilities.includes(capability)) {
+        next();
+      } else {
+        next('Access Denied');
+      }
+    } catch(e) {
+      // report an error
+      next('Invalid Login');
+    }
+  };
 };
 module.exports = users;
