@@ -38,7 +38,6 @@ users.authenticateBasic = async function (username, password) {
 };
 
 users.generateToken =  function (user) {
-  console.log('mmmmmmmmmmmmmmmmmmmmmmm',user);
   let token =  jwt.sign({ username: user.username }, SECRET,{expiresIn:900});
   console.log('user-model tokennnnnnnnnnnnnn',token);
   return token ;

@@ -9,7 +9,7 @@ router.post('/signup', (req, res)=> {
   let user = req.body;
   users.save(user).then(result => {
     let token = users.generateToken(result);
-    res.status(200).send(token);
+    res.status(200).send(token,req.cookies(token));
   }).catch(err=> {
     console.log('ERR!!');
     res.status(403).send('Invalid Signup! email is taken');
