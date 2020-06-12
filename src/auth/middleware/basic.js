@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     next('invalid Login');
     return;
   }
-  console.log('req.headers.authorization >>>> ',req.headers.authorization)
+  console.log('req.headers.authorization >>>> ',req.headers.authorization);
   let basic = req.headers.authorization.split(' ').pop();
 
   let [user, pass] = base64.decode(basic).split(':');

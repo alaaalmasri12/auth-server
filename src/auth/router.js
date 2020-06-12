@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const users = require('../auth/models/user-model');
 const basicAuth = require('./middleware/basic');
-const app=express();
 router.post('/signup', (req, res)=> {
   //sign up route if we have the user, return failure, else return generated token.
   let user = req.body;
