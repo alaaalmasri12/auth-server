@@ -44,9 +44,6 @@ router.post('/create',bearerMiddleware, acl('create'), (req, res)=> {
   res.status(201).send('created !! ');
 });
 
-router.post('/create',bearerMiddleware, athorize('create'), (req, res)=> {
-  res.status(201).send('created !! ');
-});
 router.get('/read', bearerMiddleware, acl('read'), (req, res)=> {
   res.status(200).send('Allowed reading !!');
 });
